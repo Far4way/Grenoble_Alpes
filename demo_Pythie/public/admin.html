@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8"/>
+		<title>Pythie - Main</title>
+		<script type="text/javascript" src="https://2020.igem.org/Template:Grenoble_Alpes/jqueryJS?action=raw&ctype=text/javascript"></script>
+		<script type="text/javascript" src="https://2020.igem.org/Template:Grenoble_Alpes/bootstapJS?action=raw&ctype=text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<style>
+			.embeddedConsole {
+				display: flex;
+				flex-direction: column;
+				height: 400px;
+				margin: auto;
+				width: 700px;
+				justify-content: flex-end;
+				align-items: center;
+			}
+			
+			.consoleHistoryWrapper {
+				height: 90%;
+				border: 5px double dimgray;
+				width: 100%;
+				padding: 10px;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				background-color: darkslateblue;
+			}
+			
+			.consoleHistory {
+				word-break: break-word;
+				color: whitesmoke;
+			}
+			
+			.consoleInput {
+				height: 10%;
+				width: 100%;
+				display: flex;
+				align-items: stretch;
+				justify-content: space-around;
+				background-color: darkslateblue;
+				border: 5px double dimgray;
+				border-radius: 5px;
+				margin-top: -5px;
+			}
+			
+			.consoleInput button {
+				width: 15%;
+			}
+			
+			.consoleInput input {
+				width: 80%;
+			}
+			
+			.sendButton:active, .sendButton:hover {
+				background-color: lightblue;
+			}
+			
+			.form-group {
+				border-radius: 10px;
+				border: gray solid 1px;
+			}
+			
+			#thirdStep table th {
+				width: 3vw;
+				height: 3vw;
+				vertical-align: middle;
+				background-color: #f1f1f1;
+				border: 1px solid #fff;
+				-webkit-touch-callout: none; /* iOS Safari */
+				-webkit-user-select: none; /* Safari */
+				-moz-user-select: none; /* Old versions of Firefox */
+				-ms-user-select: none; /* Internet Explorer/Edge */
+				user-select: none; /* Non-prefixed version, currently*/
+			}
+			
+			#thirdStep table td {
+				width: 3vw;
+				height: 3vw;
+				vertical-align: middle;
+				background-color: #ccc;
+				border: 1px solid #fff;
+			}
+			
+			#thirdStep table td div {
+				width: 85%;
+				height: 85%;
+				margin: auto;
+				text-align: center;
+				vertical-align: middle;
+				background-color: #000000;
+				border-radius: 50%;
+			}
+			
+			#wellsArray {
+				margin: auto;
+			}
+			
+			.listWellsGroups {
+				max-height: 40vh;
+				overflow-y: auto;
+			}
+			
+			#thirdStep table td.highlighted div {
+				background-color: #ffffff;
+			}
+			
+			#thirdStep table td.selected {
+				background-color: white;
+				border-style: double;
+				border-color: red;
+			}
+			
+			#listGroups li {
+				cursor: pointer;
+			}
+			
+			.btn:disabled{
+				opacity: 100%;
+			}
+			/* width */
+			::-webkit-scrollbar {
+				width: 10px;
+			}
+			
+			/* Track */
+			::-webkit-scrollbar-track {
+				background-color: rgba(182,103,49,0.1);
+				border: solid 5px transparent;
+				margin: 10px 2px;
+			}
+			
+			/* Handle */
+			::-webkit-scrollbar-thumb {
+				background: #b66731;
+				border: solid 5px transparent;
+				border-radius: 5px;
+			}
+			
+			/* Handle on hover */
+			::-webkit-scrollbar-thumb:hover {
+				background: #fa7113;
+			}
+			
+			.nav.nav-tabs{
+				padding-left: 20px ;
+				padding-right: 20px ;
+				border-bottom: 1px solid #888;;
+			}
+			.nav-tabs .nav-link{
+				border-color: #ccc #ccc #888!important;
+				
+			}
+			
+			.nav-tabs .nav-link.active{
+				border-color: #888 #888 #fff !important;
+			}
+			
+			.login-page {
+				width: 360px;
+				padding: 8% 0 0;
+				margin: auto;
+			}
+			
+			.form {
+				position: relative;
+				z-index: 1;
+				background: #FFFFFF;
+				max-width: 360px;
+				margin: 0 auto 100px;
+				padding: 45px;
+				text-align: center;
+				box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+			}
+			.form input {
+				font-family: "Roboto", sans-serif;
+				outline: 0;
+				background: #f2f2f2;
+				width: 100%;
+				border: 0;
+				margin: 0 0 15px;
+				padding: 15px;
+				box-sizing: border-box;
+				font-size: 14px;
+			}
+			.form button {
+				font-family: "Roboto", sans-serif;
+				text-transform: uppercase;
+				outline: 0;
+				background: #4CAF50;
+				width: 100%;
+				border: 0;
+				padding: 15px;
+				color: #FFFFFF;
+				font-size: 14px;
+				-webkit-transition: all 0.3s ease;
+				transition: all 0.3s ease;
+				cursor: pointer;
+			}
+			
+			.form button:hover,.form button:active,.form button:focus {
+				background: #43A047;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<p id="Robert"></p>
+		<h1>Welcome to the Pythie interface, ADMIN version.</h1>
+		
+		<ul class="nav nav-tabs pythie-tabs" id="myTab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+				   aria-selected="true">Home</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab"
+				   aria-controls="profile"
+				   aria-selected="false">Details</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link" id="controls-tab" data-toggle="tab" href="#controls" role="tab"
+				   aria-controls="contact"
+				   aria-selected="false">Controls</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link" id="admin-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="contact"
+				   aria-selected="false">Admin</a>
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+				<div class="container-xl pt-4">
+					<div class="row justify-content-around align-items-center">
+						<div class="col-5 container">
+							<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+								<div class="carousel-inner">
+									<div class="carousel-item active">
+										<div class="d-block w-100" style="background-color: darksalmon; height: 300px;">
+											<img class="h-100" src="src/well1.jpg" alt="">
+										</div>
+									</div>
+									<div class="carousel-item">
+										<div class="d-block w-100"
+											 style="background-color: darkslategray; height: 300px;">
+											<img class="h-100 text-center" src="src/well2.png" alt="">
+										</div>
+									</div>
+									<div class="carousel-item">
+										<div class="d-block w-100"
+											 style="background-color: darkslateblue; height: 300px;">
+											<img class="h-100" src="src/plate.jpg" alt="">
+										</div>
+									</div>
+								</div>
+								<a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+								   data-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="sr-only">Previous</span>
+								</a>
+								<a class="carousel-control-next" href="#carouselExampleControls" role="button"
+								   data-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</div>
+						</div>
+						<div class="col-5 container">
+							<div class="row container justify-content-around">
+								<div class="col-5 text-right">
+									<p>Temperature : </p>
+								</div>
+								<div class="col-6 row">
+									
+									<div class="col-5 text-right p-0">
+										<p>37.0 °C</p>
+									</div>
+									<div class="col-1 p-0 text-center"> /</div>
+									<div class="col-5 p-0">
+										<p>37.5 °C </p>
+									</div>
+								</div>
+							</div>
+							<div class="row container justify-content-around">
+								<div class="col-5 text-right">
+									<p>Humidity : </p>
+								</div>
+								<div class="col-6 row">
+									
+									<div class="col-5 text-right p-0">
+										<p>99.5 %</p>
+									</div>
+									<div class="col-1 p-0 text-center"> /</div>
+									<div class="col-5 p-0">
+										<p>100.0 %</p>
+									</div>
+								</div>
+							</div>
+							<div class="row container justify-content-around">
+								<div class="col-5 text-right">
+									<p>Agitation : </p>
+								</div>
+								<div class="col-6 row text-center">
+									<div class="col-11">
+										<p>120.0 rpm</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+			<div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+				<div class="container-xl pt-4">
+					DETAILS
+				</div>
+			</div>
+			<div class="tab-pane fade" id="controls" role="tabpanel" aria-labelledby="controls-tab">
+				<div class="container-fluid pt-4">
+					<div class="row justify-content-around align-items-center">
+						<div class="col-12 controlPanel">
+							<div id="experienceControlStatus" class="experienceStatus col-6 m-auto">
+								<div class="experienceTitle text-center">
+									<p class="h2">
+										Experience Status
+									</p>
+								</div>
+								<div class="form-group row justify-content-center">
+									<div class="col-sm-6 col-form-label text-right">Experience
+										Name :
+									</div>
+									<div class="col-sm-6">
+										<div class="form-control col-10" id="experienceName"></div>
+									</div>
+								</div>
+								<div class="form-group row justify-content-center">
+									<div class="col-sm-6 col-form-label text-right">Experience
+										Number :
+									</div>
+									<div class="col-sm-6">
+										<div class="form-control col-10" id="experienceNumber"></div>
+									</div>
+								</div>
+								<div class="form-group row justify-content-center">
+									<div class="col-sm-6 col-form-label text-right">Started By :
+									</div>
+									<div class="col-sm-6">
+										<div class="form-control col-10" id="experienceUser"></div>
+									</div>
+								</div>
+								<div class="form-group row justify-content-center">
+									<div class="col-sm-6 col-form-label text-right">Started On :
+									</div>
+									<div class="col-sm-6">
+										<div class="form-control col-10" id="experienceStartDate"></div>
+									</div>
+								</div>
+								<div class="form-group row justify-content-center">
+									<div class="col-sm-6 col-form-label text-right">Ended On :
+									</div>
+									<div class="col-sm-6">
+										<div class="form-control col-10" id="experienceEndDate"></div>
+									</div>
+								</div>
+								
+								<div class="form-group row justify-content-center">
+									<label for="experienceStatusButton"
+										   class="col-sm-6 col-form-label text-right">Experience
+										Status :
+									</label>
+									<div class="col-sm-6">
+										<button id="experienceStatusButton" type="button" class="btn btn-success"
+												disabled></button>
+									</div>
+								
+								</div>
+								<div class="form-group row justify-content-center">
+									<div class="col-sm-8 row justify-content-around">
+										<button id="startExperienceButton" type="button"
+												class="btn btn-primary col-sm-4">Start
+											a new Experience!
+										</button>
+										<button id="pauseExperienceButton" type="button"
+												class="btn btn-warning col-sm-4">Pause
+											the Experience!
+										</button>
+										<button id="continueExperienceButton" type="button"
+												class="btn btn-warning col-sm-4">Continue
+											the Experience!
+										</button>
+										<button id="addStepButton" type="button"
+												class="btn btn-primary col-sm-4">New Step!
+										</button>
+										<button id="stopExperienceButton" type="button" class="btn btn-danger col-sm-4">
+											Stop
+											the Experience!
+										</button>
+									</div>
+								
+								</div>
+							
+							</div>
+							<div id="experienceControlStart" class="experienceForm">
+								<form id="firstStep" class="container col-6 m-auto">
+									<div class="experienceTitle text-center">
+										<p class="h2">
+											Start an experience !
+										</p>
+									</div>
+									<div class="form-group row justify-content-center">
+										<label for="inputExperienceNumber"
+											   class="col-sm-6 col-form-label text-right">Experience
+											N° :
+										</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control col-10 disabled"
+												   id="inputExperienceNumber" value=0 placeholder="#" disabled>
+										</div>
+									</div>
+									<div class="form-group row justify-content-center">
+										<label for="inputExperienceName"
+											   class="col-sm-6 col-form-label text-right">Experience
+											Name :
+										</label>
+										<div class="col-sm-6 d-flex align-items-center ">
+											<input type="text" class="form-control col-10" id="inputExperienceName"
+												   placeholder="Experience Name">
+										</div>
+									</div>
+									<div class="form-group row justify-content-center">
+										<label for="experienceEndCalendar"
+											   class="col-sm-6 col-form-label text-right">Experience
+											End Date (optionnal) :
+										</label>
+										<div class='col-sm-6'>
+											<div class="form-group col-10">
+												<div class='input-group date align-items-center' id='datetimepicker1'>
+													<input type="text" class="form-control" id="experienceEndCalendar"/>
+													<div class="input-group-addon">
+														<svg class="bi" width="32" height="32" fill="currentColor">
+															<use xlink:href="src/bootstrap-icons.svg#calendar-date"/>
+														</svg>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row justify-content-center">
+										<div class="col-sm-6 text-right">Measures :</div>
+										<div class="col-sm-6">
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="8"
+													   id="checkboxGFP"
+													   checked>
+												<label class="form-check-label" for="checkboxGFP">
+													GFP
+												</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="4"
+													   id="checkboxMCherry" checked>
+												<label class="form-check-label" for="checkboxMCherry">
+													MCherry
+												</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="2"
+													   id="checkboxCrystalViolet" checked>
+												<label class="form-check-label" for="checkboxCrystalViolet">
+													Crystal Violet
+												</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="1"
+													   id="checkboxAmbientLight" checked>
+												<label class="form-check-label" for="checkboxAmbientLight">
+													Ambient Light
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row justify-content-center">
+										<label for="inputMeasurementDelay"
+											   class="col-sm-6 col-form-label text-right">Measurement
+											Delay (min) :
+										</label>
+										<div class="col-sm-6 d-flex align-items-center ">
+											<input type="number" class="form-control col-10" id="inputMeasurementDelay"
+												   placeholder="Measurement Delay" value="30">
+										</div>
+									</div>
+									<div class="form-group row justify-content-around">
+										<div class="col-auto">
+											<button type="submit" class="btn btn-primary">Validate / Next</button>
+										</div>
+									</div>
+								</form>
+								<form id="secondStep" class="container col-6 m-auto">
+									<div class="experienceTitle text-center">
+										<p class="h2">
+											Set-up the Step
+										</p>
+									</div>
+									<div class="form-group row justify-content-center">
+										<label for="inputStepTemperature" class="col-sm-6 col-form-label text-right">Step
+											Temperature (°C) :
+										</label>
+										<div class="col-sm-6 d-flex align-items-center ">
+											<input type="number" class="form-control col-10" id="inputStepTemperature"
+												   placeholder="Step Temperature" value="37" min="0" max="90"
+												   step="0.1">
+										</div>
+									</div>
+									<div class="form-group row justify-content-center">
+										<label for="inputStepHumidity" class="col-sm-6 col-form-label text-right">Step
+											Humidity
+											(%) :
+										</label>
+										<div class="col-sm-6 d-flex align-items-center ">
+											<input type="number" class="form-control col-10" id="inputStepHumidity"
+												   placeholder="Step Humidity" value="90" min="0" max="100.0"
+												   step="0.1">
+										</div>
+									</div>
+									<div class="form-group row justify-content-center">
+										<label for="inputStepAgitation" class="col-sm-6 col-form-label text-right">Step
+											Agitation (rpm) :
+										</label>
+										<div class="col-sm-6 d-flex align-items-center ">
+											<input type="number" class="form-control col-10" id="inputStepAgitation"
+												   placeholder="Step Agitation" value="90" step="1" min="1" max="300">
+										</div>
+									</div>
+									<div class="form-group row justify-content-center">
+										<label for="stepEndCalendar" class="col-sm-6 col-form-label text-right">Step End
+											Date
+											(optionnal) :
+										</label>
+										<div class='col-sm-6'>
+											<div class="form-group col-10">
+												<div class='input-group date align-items-center' id='datetimepicker2'>
+													<input type="text" class="form-control" id="stepEndCalendar"/>
+													<div class="input-group-addon">
+														<svg class="bi" width="32" height="32" fill="currentColor">
+															<use xlink:href="src/bootstrap-icons.svg#calendar-date"/>
+														</svg>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row justify-content-around">
+										<div class="col-auto">
+											<button type="submit" class="btn btn-primary">Validate / Next</button>
+										</div>
+									</div>
+								</form>
+								<form id="thirdStep" class="container-fluid">
+									<div class="form-group row justify-content-around">
+										<div class="col-sm-3">
+											<div class="form-group row justify-content-center">
+												<label for="inputGroupName" class="col-sm-6 col-form-label text-right">Group
+													Name :
+												</label>
+												<div class="col-sm-6">
+													<input type="text" class="form-control" id="inputGroupName"
+														   placeholder="Group Name">
+												</div>
+											</div>
+											<div class="form-group row justify-content-center">
+												<label for="inputNumberWellSelected"
+													   class="col-sm-6 col-form-label text-right">Well
+													Selected :
+												</label>
+												<div class="col-sm-6">
+													<input type="text" class="form-control disabled"
+														   id="inputNumberWellSelected" value=0 placeholder="#"
+														   disabled>
+												</div>
+											</div>
+											
+											<div class="form-group row justify-content-around clearWellSelection">
+												<button id="resetWellsArray" type="button"
+														class="btn btn-primary col-auto">
+													Clear Selection
+												</button>
+												
+												<button id="addWellsGroup" type="button"
+														class="btn btn-primary col-auto">Add to
+													Group
+												</button>
+											</div>
+											<div class="form-group row justify-content-center listWellsGroups">
+												<div class="text-center">
+													<p class="h4">Wells Groups : </p>
+												</div>
+												<br>
+												<div>
+													<ul id="listGroups">
+													</ul>
+												</div>
+											</div>
+											<div class="form-group row justify-content-center clearWellSelection">
+												<button id="resetWellsGroups" type="button" class="btn btn-primary">
+													Clear
+													Groups
+												</button>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<table class="text-center" cellpadding="0" cellspacing="0" id="wellsArray">
+												<tr data-line="-1">
+													<th data-column="-1"></th>
+													<th data-column="0">1</th>
+													<th data-column="1">2</th>
+													<th data-column="2">3</th>
+													<th data-column="3">4</th>
+													<th data-column="4">5</th>
+													<th data-column="5">6</th>
+													<th data-column="6">7</th>
+													<th data-column="7">8</th>
+													<th data-column="8">9</th>
+													<th data-column="9">10</th>
+													<th data-column="10">11</th>
+													<th data-column="11">12</th>
+												</tr>
+												<tr data-line="0">
+													<th>A</th>
+													<td data-column="0">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="1">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="2">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="3">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="4">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="5">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="6">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="7">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="8">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="9">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="10">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="11">
+														<div>
+														
+														</div>
+													</td>
+												</tr>
+												<tr data-line="1">
+													<th>B</th>
+													<td data-column="0">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="1">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="2">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="3">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="4">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="5">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="6">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="7">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="8">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="9">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="10">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="11">
+														<div>
+														
+														</div>
+													</td>
+												</tr>
+												<tr data-line="2">
+													<th>C</th>
+													<td data-column="0">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="1">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="2">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="3">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="4">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="5">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="6">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="7">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="8">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="9">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="10">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="11">
+														<div>
+														
+														</div>
+													</td>
+												</tr>
+												<tr data-line="3">
+													<th>D</th>
+													<td data-column="0">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="1">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="2">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="3">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="4">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="5">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="6">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="7">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="8">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="9">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="10">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="11">
+														<div>
+														
+														</div>
+													</td>
+												</tr>
+												<tr data-line="4">
+													<th>E</th>
+													<td data-column="0">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="1">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="2">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="3">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="4">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="5">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="6">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="7">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="8">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="9">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="10">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="11">
+														<div>
+														
+														</div>
+													</td>
+												</tr>
+												<tr data-line="5">
+													<th>F</th>
+													<td data-column="0">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="1">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="2">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="3">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="4">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="5">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="6">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="7">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="8">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="9">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="10">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="11">
+														<div>
+														
+														</div>
+													</td>
+												</tr>
+												<tr data-line="6">
+													<th>G</th>
+													<td data-column="0">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="1">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="2">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="3">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="4">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="5">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="6">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="7">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="8">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="9">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="10">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="11">
+														<div>
+														
+														</div>
+													</td>
+												</tr>
+												<tr data-line="7">
+													<th>H</th>
+													<td data-column="0">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="1">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="2">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="3">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="4">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="5">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="6">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="7">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="8">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="9">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="10">
+														<div>
+														
+														</div>
+													</td>
+													<td data-column="11">
+														<div>
+														
+														</div>
+													</td>
+												</tr>
+											
+											</table>
+											<div class="form-group row justify-content-around">
+												<div class="col-auto">
+													<button id="startExperiment" type="button" class="btn btn-primary">
+														START/RESUME EXPERIMENT
+													</button>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group row justify-content-center">
+												<label for="inputGroupSelected"
+													   class="col-sm-6 col-form-label text-right">Group
+													Selected :
+												</label>
+												<div class="col-sm-6">
+													<input type="text" class="form-control disabled"
+														   id="inputGroupSelected"
+														   placeholder="Group Selected" disabled>
+												</div>
+											</div>
+											<div class="form-group row justify-content-center">
+												<div class="col-sm-6 text-right">Wells :
+												</div>
+												<div class="col-sm-6">
+													<div id="listWells">
+													
+													</div>
+												</div>
+											</div>
+											<div class="text-center">
+												<p class="h4">Add a Product</p>
+											</div>
+											<div class="form-group row justify-content-center">
+												<label for="inputProductName"
+													   class="col-sm-6 col-form-label text-right">Name :
+												</label>
+												<div class="col-sm-6">
+													<input type="text" class="form-control" id="inputProductName"
+														   placeholder="Product Name">
+												</div>
+												<label for="inputProductConcentration"
+													   class="col-sm-6 col-form-label text-right">Concentration :
+												</label>
+												<div class="col-sm-6">
+													<input type="text" class="form-control"
+														   id="inputProductConcentration"
+														   placeholder="Product Concentration">
+												</div>
+												<label for="inputProductVolume"
+													   class="col-sm-6 col-form-label text-right">Volume
+													:
+												</label>
+												<div class="col-sm-6">
+													<input type="text" class="form-control" id="inputProductVolume"
+														   placeholder="Product Volume">
+												</div>
+											</div>
+											<div class="form-group row justify-content-around">
+												<div class="col-auto">
+													<button id="addProductToGroup" type="button"
+															class="btn btn-primary">Add
+														Product to Group
+													</button>
+												</div>
+											</div>
+										
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-tab">
+				<div class="container-xl pt-4">
+					<div class="embeddedConsole">
+						<div class="consoleHistoryWrapper">
+							<div class="consoleHistory">
+							</div>
+						</div>
+						<form class="consoleInput" onsubmit="return false;">
+							<input type="text" value="" name="message"/>
+							<button class="sendButton">=></button>
+						</form>
+						<div class="console"></div>
+					</div>
+					
+					<div id="SignUpUser">
+						<div class="login-page">
+							<div class="form">
+								<h3>REGISTER A NEW USER</h3> <br>
+								<form class="loginForm">
+									<input class="usernameInput" type="text" placeholder="username"/>
+									<input class="passwordInput" type="password" placeholder="password"/>
+									<input class="passwordConfirmInput" type="password" placeholder="passwordConfirm"/>
+									<p>ADMIN ?<input class="roleInput" name="role" id="role" type="checkbox"/></p>
+									<button>Register</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://2020.igem.org/Template:Grenoble_Alpes/dateTimePickerJS?action=raw&ctype=text/javascript" type="text/javascript"></script>
+	<script src="https://2020.igem.org/Template:Grenoble_Alpes/adminJS?action=raw&ctype=text/javascript" type="text/javascript"></script>
+	<script type="text/javascript">
+        $('.loginForm').on('submit', function (e) {
+            e.preventDefault(); // prevents page reloading
+            let admin = $(".roleInput").is(':checked');
+            let roles;
+            if (admin) roles = ["user","admin"];
+            else roles = ["user"];
+            if ($(".passwordInput").val() === $(".passwordConfirmInput").val()){
+                $.ajax({
+                    url:'/signup',
+                    type: 'POST',
+                    data: {"username" : $(".usernameInput").val(),
+                        "password" : $(".passwordInput").val(),
+                        "roles" : roles
+                    },
+                    dataType: 'text'
+                });
+                $('.loginForm input').val('');
+            } else {
+                //TODO: Rajouter les vérifications nécessaires et correctement alerter l'utilisateur
+                // ON success, fail etc....
+                console.log("PASSWORDS NOT MATCHING");
+            }
+            return false;
+        });
+	</script>
+</html>

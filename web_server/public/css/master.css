@@ -1,0 +1,37 @@
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: rgba(182,103,49,0.1);
+    border: solid 5px transparent;
+    margin: 10px 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #b66731;
+    border: solid 5px transparent;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #fa7113;
+}
+
+.nav.nav-tabs{
+    padding-left: 20px ;
+    padding-right: 20px ;
+    border-bottom: 1px solid #888;;
+}
+.nav-tabs .nav-link{
+    border-color: #ccc #ccc #888!important;
+
+}
+
+.nav-tabs .nav-link.active{
+    border-color: #888 #888 #fff !important;
+}

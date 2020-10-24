@@ -1,0 +1,48 @@
+.embeddedConsole {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    margin: auto;
+    width: 700px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.consoleHistoryWrapper {
+    height: 90%;
+    border: 5px double dimgray;
+    width: 100%;
+    padding: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: darkslateblue;
+}
+
+.consoleHistory {
+    word-break: break-word;
+    color: whitesmoke;
+}
+
+.consoleInput {
+    height: 10%;
+    width: 103%;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    background-color: darkslateblue;
+    border: 5px double dimgray;
+    border-radius: 5px;
+    margin-top: -5px;
+}
+
+.consoleInput button {
+    width: 15%;
+}
+
+.consoleInput input {
+    width: 80%;
+}
+
+.sendButton:active, .sendButton:hover {
+    background-color: lightblue;
+}

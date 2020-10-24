@@ -1,0 +1,37 @@
+{
+  "name": "temp_igem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "bootstrap-icons": "^1.0.0",
+    "child_process": "^1.0.2",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.1-security",
+    "jquery-datetimepicker": "^2.5.21",
+    "jquery.terminal": "^2.17.6",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.0",
+    "passport": "^0.4.1",
+    "pi-camera-connect": "^0.3.3",
+    "python-shell": "^2.0.1",
+    "serialport": "^9.0.1",
+    "socket.io": "^2.3.0",
+    "socketio-auth": "^0.1.1",
+    "usb": "^1.6.3",
+    "websocket": "^1.0.31",
+    "ws": "^7.3.1"
+  }
+}

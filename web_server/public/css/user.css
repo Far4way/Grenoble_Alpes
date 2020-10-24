@@ -1,0 +1,14 @@
+/** tableau sélectionnable
+table td {
+  width:50px;
+  height:50px;
+  text-align:center;
+  vertical-align:middle;
+  background-color:antiquewhite;
+  border:1px solid #fff;
+}
+
+table td.highlighted {
+  background-color:darkslategray;
+}
+*/

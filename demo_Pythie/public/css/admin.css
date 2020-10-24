@@ -1,0 +1,112 @@
+.embeddedConsole {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    margin: auto;
+    width: 700px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.consoleHistoryWrapper {
+    height: 90%;
+    border: 5px double dimgray;
+    width: 100%;
+    padding: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: darkslateblue;
+}
+
+.consoleHistory {
+    word-break: break-word;
+    color: whitesmoke;
+}
+
+.consoleInput {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    background-color: darkslateblue;
+    border: 5px double dimgray;
+    border-radius: 5px;
+    margin-top: -5px;
+}
+
+.consoleInput button {
+    width: 15%;
+}
+
+.consoleInput input {
+    width: 80%;
+}
+
+.sendButton:active, .sendButton:hover {
+    background-color: lightblue;
+}
+
+.form-group {
+    border-radius: 10px;
+    border: gray solid 1px;
+}
+
+#thirdStep table th {
+    width: 3vw;
+    height: 3vw;
+    vertical-align: middle;
+    background-color: #f1f1f1;
+    border: 1px solid #fff;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently*/
+}
+
+#thirdStep table td {
+    width: 3vw;
+    height: 3vw;
+    vertical-align: middle;
+    background-color: #ccc;
+    border: 1px solid #fff;
+}
+
+#thirdStep table td div {
+    width: 85%;
+    height: 85%;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #000000;
+    border-radius: 50%;
+}
+
+#wellsArray {
+    margin: auto;
+}
+
+.listWellsGroups {
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+#thirdStep table td.highlighted div {
+    background-color: #ffffff;
+}
+
+#thirdStep table td.selected {
+    background-color: white;
+    border-style: double;
+    border-color: red;
+}
+
+#listGroups li {
+    cursor: pointer;
+}
+
+.btn:disabled{
+    opacity: 100%;
+}

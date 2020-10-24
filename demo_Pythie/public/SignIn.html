@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8"/>
+		<title>Pythie - Main</title>
+		<script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+	    <style>
+            /* width */
+            ::-webkit-scrollbar {
+                width: 10px;
+            }
+        
+            /* Track */
+            ::-webkit-scrollbar-track {
+                background-color: rgba(182,103,49,0.1);
+                border: solid 5px transparent;
+                margin: 10px 2px;
+            }
+        
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: #b66731;
+                border: solid 5px transparent;
+                border-radius: 5px;
+            }
+        
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #fa7113;
+            }
+        
+            .nav.nav-tabs{
+                padding-left: 20px ;
+                padding-right: 20px ;
+                border-bottom: 1px solid #888;;
+            }
+            .nav-tabs .nav-link{
+                border-color: #ccc #ccc #888!important;
+            
+            }
+        
+            .nav-tabs .nav-link.active{
+                border-color: #888 #888 #fff !important;
+            }
+            
+            .login-page {
+                width: 360px;
+                padding: 8% 0 0;
+                margin: auto;
+            }
+        
+            .form {
+                position: relative;
+                z-index: 1;
+                background: #FFFFFF;
+                max-width: 360px;
+                margin: 0 auto 100px;
+                padding: 45px;
+                text-align: center;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+            }
+            .form input {
+                font-family: "Roboto", sans-serif;
+                outline: 0;
+                background: #f2f2f2;
+                width: 100%;
+                border: 0;
+                margin: 0 0 15px;
+                padding: 15px;
+                box-sizing: border-box;
+                font-size: 14px;
+            }
+            .form button {
+                font-family: "Roboto", sans-serif;
+                text-transform: uppercase;
+                outline: 0;
+                background: #4CAF50;
+                width: 100%;
+                border: 0;
+                padding: 15px;
+                color: #FFFFFF;
+                font-size: 14px;
+                -webkit-transition: all 0.3 ease;
+                transition: all 0.3 ease;
+                cursor: pointer;
+            }
+        
+            .form button:hover,.form button:active,.form button:focus {
+                background: #43A047;
+            }
+        </style>
+    </head>
+	
+	<body>
+		
+		<div class="login-page">
+			<div class="form">
+				<form class="loginForm">
+					<input class="usernameInput" type="text" placeholder="username"/>
+					<input class="passwordInput" type="password" placeholder="password"/>
+					<button>login</button>
+				</form>
+			</div>
+		</div>
+	
+        <script>
+            $('.loginForm').on('submit', function (e) {
+                e.preventDefault();
+                window.location="./admin";
+                return false;
+            });
+        </script>
+	</body>
