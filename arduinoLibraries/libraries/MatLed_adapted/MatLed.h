@@ -12,15 +12,12 @@
 
 
 //definition de la classe MatLed
-class MatLed_adapted : public OperatingClass{
+class MatLed : public OperatingClass{
   //declaration des prototypes
 
 public:
   /*constructeur initiant les leds et les arguments*/
-  MatLed_adapted();
-
-  /*destructeur realisant rien*/
-  ~MatLed_adapted();
+  MatLed();
 
   /*affiche les leds dans l etat demande*/
   uint8_t show(uint8_t notuse);
