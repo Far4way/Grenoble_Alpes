@@ -1,8 +1,8 @@
-#include <Hermes.h>
+#include <HermAs.h>
 #include <OpClassTest.h>
 
 OpClassTest opcT(42);
-Hermes herm(0b001,opcT);
+HermAs herm(0b001,opcT);
 
 
 void setup() {
