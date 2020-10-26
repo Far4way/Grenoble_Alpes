@@ -2,7 +2,7 @@
 #include <OpClassTest.h>
 
 OpClassTest opcT(42);
-Hermes herm(0b010,opcT);
+Hermes herm(0b001,opcT);
 
 
 void setup() {
