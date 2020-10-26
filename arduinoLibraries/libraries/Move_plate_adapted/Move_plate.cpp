@@ -1,10 +1,10 @@
 #include <Arduino.h>
 #include <TMC2130Stepper.h>
-#include "Hermes.h"
-#include "Move_plate_adapted.h"
+#include "HermAs.h"
+#include "Move_plate.h"
 
 //constructeur
-Move_plate_adapted::Move_plate_adapted() :
+Move_plate::Move_plate() :
   PosX(-1), PosY(-1), X_order(0), Y_order(0), numWell(0), rpm(50), microS_time(0), RotState(0), indTabrot(0), TMC2130_X(EN_PIN_X, DIR_PIN_X, STEP_PIN_X, CS_PIN_X), TMC2130_Y(EN_PIN_Y, DIR_PIN_Y, STEP_PIN_Y, CS_PIN_Y)
   {
 
@@ -13,7 +13,7 @@ Move_plate_adapted::Move_plate_adapted() :
 
 //Méthodes
 
-void Move_plate_adapted::Setup(){
+void Move_plate::Setup(){
   TMC2130_X.begin(); // Initiate pins and registeries
   TMC2130_Y.begin();
   TMC2130_X.setCurrent(1200, 0.11,0.5); // Set stepper current to 600mA
@@ -33,7 +33,7 @@ void Move_plate_adapted::Setup(){
 }
 
 
-uint8_t Move_plate_adapted::rotation(uint8_t unused){
+uint8_t Move_plate::rotation(uint8_t unused){
   uint8_t result = 1;
   switch(RotState){
     case 0: //initialisation
@@ -73,7 +73,7 @@ uint8_t Move_plate_adapted::rotation(uint8_t unused){
 }
 
 
-uint8_t Move_plate_adapted::initPos(uint8_t unused){
+uint8_t Move_plate::initPos(uint8_t unused){
   digitalWrite(DIR_PIN_X,LOW);
   if( digitalRead(POS_SENSOR_PIN_X) == HIGH ){
     digitalWrite(STEP_PIN_X, HIGH);
@@ -100,7 +100,7 @@ uint8_t Move_plate_adapted::initPos(uint8_t unused){
   return 1;
 }
 
-uint8_t Move_plate_adapted::moveTo_00(uint8_t unused){
+uint8_t Move_plate::moveTo_00(uint8_t unused){
   X_order =0;
   Y_order =0;
 
@@ -108,7 +108,7 @@ uint8_t Move_plate_adapted::moveTo_00(uint8_t unused){
 }
 
 
-uint8_t Move_plate_adapted::moveTo_Well(uint8_t fluoType){
+uint8_t Move_plate::moveTo_Well(uint8_t fluoType){
   X_order = POSX_WELL0 - (numWell%8)*DISTWELL;
   Y_order = POSY_WELL0 - (numWell/8)*DISTWELL + fluoType*DISTFLUO;
 
@@ -116,7 +116,7 @@ uint8_t Move_plate_adapted::moveTo_Well(uint8_t fluoType){
 }
 
 
-uint8_t Move_plate_adapted::moveTo_order(uint8_t unused){
+uint8_t Move_plate::moveTo_order(uint8_t unused){
   uint8_t result =1;
   if(PosX > X_order){
     result *= one_step_X(-1);
@@ -138,7 +138,7 @@ uint8_t Move_plate_adapted::moveTo_order(uint8_t unused){
 }
 
 
-uint8_t Move_plate_adapted::one_step_X(uint8_t direction){
+uint8_t Move_plate::one_step_X(uint8_t direction){
   if(direction == 1 && PosX < MAX_X) {
     digitalWrite(DIR_PIN_X, HIGH  );
     PosX+=1;
@@ -163,7 +163,7 @@ uint8_t Move_plate_adapted::one_step_X(uint8_t direction){
 }
 
 
-uint8_t Move_plate_adapted::one_step_Y(uint8_t direction){
+uint8_t Move_plate::one_step_Y(uint8_t direction){
   if (direction == 1 && PosY < MAX_Y) {
     digitalWrite(DIR_PIN_Y, HIGH);
     PosY+=1;
@@ -189,7 +189,7 @@ uint8_t Move_plate_adapted::one_step_Y(uint8_t direction){
 
 
 
-void Move_plate_adapted::SetNbArgMeth(){
+void Move_plate::SetNbArgMeth(){
   nbArgFloat = 0;
 
   nbArgInt8 = 3;
@@ -202,7 +202,7 @@ void Move_plate_adapted::SetNbArgMeth(){
   nbMethod = 7;
 }
 
-void Move_plate_adapted::SetArgMeth_inTab(){
+void Move_plate::SetArgMeth_inTab(){
   //Tab Float
 
 
