@@ -25,4 +25,6 @@ $ node server.js
 
 ### How to?
 
-To use the various files destinated for the Arduino microcontrollers, put the libraries inside the folder of the same name in you folder
+To use the various files destinated for the Arduino microcontrollers, put the Arduino libraries inside the folder: \Arduino\libraries in your computer.
+
+Then you can download the .ino file in your Arduino.
