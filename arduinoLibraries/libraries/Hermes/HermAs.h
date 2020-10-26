@@ -1,6 +1,6 @@
 
-#ifndef Hermes_h
-#define Hermes_h
+#ifndef HermAs_h
+#define HermAs_h
 
 #define NBMAXWL 20
 
@@ -22,7 +22,7 @@ typedef struct _wlFct{
 
 class OperatingClass{
 
-	friend class Hermes;
+	friend class HermAs;
 
 private:
 
@@ -55,13 +55,13 @@ public:
 
 
 
-class Hermes{
+class HermAs{
 
 public:
 	/*prototype des methodes*/
 	
 	//constructor
-	Hermes(uint8_t arg_id, OperatingClass& arg_opClass);
+	HermAs(uint8_t arg_id, OperatingClass& arg_opClass);
 
 
 	void setup_OpClass();
