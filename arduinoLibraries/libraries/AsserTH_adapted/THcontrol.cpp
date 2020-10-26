@@ -97,7 +97,7 @@ uint8_t THcontrol::control(uint8_t RalwaysOn_BrumOff){
 
 
 
-void AsserTH_adapted::SetNbArgMeth(){
+void THcontrol::SetNbArgMeth(){
 
   nbArgFloat = 26;
   nbArgInt8 = 1;
@@ -108,7 +108,7 @@ void AsserTH_adapted::SetNbArgMeth(){
 }
 
 
-void AsserTH_adapted::SetArgMeth_inTab(){
+void THcontrol::SetArgMeth_inTab(){
 
   Tabfloat[0] = &h[0];
   Tabfloat[1] = &h[1];
@@ -145,5 +145,5 @@ void AsserTH_adapted::SetArgMeth_inTab(){
   Tabi32[0] = &nextExecution;
 
 
-  TabMeth[0] = (OperatingClass::ptrf) &AsserTH_adapted::THcontrol;
+  TabMeth[0] = (OperatingClass::ptrf) &THcontrol::THcontrol;
 }
