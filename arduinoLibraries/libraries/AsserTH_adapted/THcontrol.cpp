@@ -1,19 +1,19 @@
 #include <Arduino.h>
 #include "HermAs.h"
-#include "AsserTH.h"
+#include "THcontrol.h"
 #include "DHT.h"
 
 //declaration des methodes
 
 //constructeur
-AsserTH::AsserTH( float arg_Kp, float arg_Ki, float arg_Kd,  float arg_Tdesired, float arg_Hdesired) :
+THcontrol::THcontrol( float arg_Kp, float arg_Ki, float arg_Kd,  float arg_Tdesired, float arg_Hdesired) :
 Kp(arg_Kp), Ki(arg_Ki), Kd(arg_Kd), fail(0), e0({10,10,10,10}), integ(0), pwm(100), atomisor(1), Tdesired(arg_Tdesired), Hdesired(arg_Hdesired), nextExecution(0)
 {
 
 }
 
 
-void AsserTH::Setup(){
+void THcontrol::Setup(){
   pinMode(PIN_RELAY_PWM, OUTPUT);
   //pinMode(PIN_BRUM0, OUTPUT);
   //pinMode(PIN_BRUM1, OUTPUT);
@@ -25,7 +25,7 @@ void AsserTH::Setup(){
 }
 
 
-uint8_t AsserTH::THcontrol(uint8_t RalwaysOn_BrumOff){
+uint8_t THcontrol::control(uint8_t RalwaysOn_BrumOff){
 
   if( millis() >= nextExecution){
     nextExecution =  millis() + PAS_TIME;
