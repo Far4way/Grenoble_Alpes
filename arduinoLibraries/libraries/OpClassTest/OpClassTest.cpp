@@ -1,5 +1,5 @@
 #include "Arduino.h"
-#include "Hermes.h"
+#include "HermAs.h"
 #include "OpClassTest.h"
 
 OpClassTest::OpClassTest(uint8_t arg) : argI8_0(arg){
