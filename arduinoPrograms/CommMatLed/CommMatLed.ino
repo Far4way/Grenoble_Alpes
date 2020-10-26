@@ -1,10 +1,10 @@
-#include <Hermes.h>
+#include <HermAs.h>
 #include <MatLed.h>
 
 
 
 MatLed MT;
-Hermes herm(0b001,MT);
+HermAs herm(0b001,MT);
    
 void setup() {
   herm.setup_OpClass();
