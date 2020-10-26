@@ -34,7 +34,7 @@ private:
 
 public:
 
-	//nombre d'element par type
+	//number of each type
 	uint8_t nbArgInt8;
 	uint8_t nbArgInt16;
 	uint8_t nbArgInt32;
@@ -42,16 +42,14 @@ public:
 	
 	uint8_t nbMethod;
 	
-	//pointeur sur ces elements
+	//pointer on the argument
 	uint8_t** Tabi8;
 	uint16_t** Tabi16;
 	uint32_t** Tabi32;
 	float** Tabfloat;
 	
 	//ptr on the methods
-	//uint8_t (*TabMeth[])(uint8_t);
 	typedef uint8_t (OperatingClass::* ptrf) (uint8_t);
-	//uint8_t (OperatingClass::* ptrF) (uint8_t);
 	ptrf* TabMeth;
 };
 
@@ -62,7 +60,7 @@ class Hermes{
 public:
 	/*prototype des methodes*/
 	
-	//constructeur
+	//constructor
 	Hermes(uint8_t arg_id, OperatingClass& arg_opClass);
 
 
@@ -78,7 +76,6 @@ public:
 	
 	void sendMg(uint32_t body, uint8_t typeMg = 0x01);
 	
-	/*Tack 2bits; ack:3bits; data:16bits*/
 	void sendAck( uint8_t Tack, uint8_t ack, uint16_t data = 0);
 	
 	uint8_t sendInfo(uint8_t Tinf, uint8_t numArg1 = 0xff, uint8_t numArg2 = 0xff);
