@@ -31,4 +31,4 @@ Then you can download the .ino file in your Arduino, and try it with the Pythie 
 
 
 
-To know more about the functioning and our project, go to our [wiki](https://2020.igem.org/Team:Grenoble_Alpes/Contribution)
+To know more about the functioning and our project, go to our [wiki](https://2020.igem.org/Team:Grenoble_Alpes/Contribution).
