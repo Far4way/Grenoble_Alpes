@@ -1,9 +1,9 @@
 #include <Hermes.h>
-#include <Move_plate_adapted.h>
+#include <Move_plate.h>
 
 
-Move_plate_adapted Mot;
-Hermes herm(0b001,Mot);
+Move_plate Mot;
+Hermes herm(0b010,Mot);
 
 void setup() {
   herm.setup_OpClass();
