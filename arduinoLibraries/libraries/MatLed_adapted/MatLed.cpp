@@ -160,15 +160,15 @@ void MatLed::SetArgMeth_inTab(){
 	Tabi8[7] = &blue_default;
 	
 	
-	TabMeth[0] = (OperatingClass::ptrf) &MatLed_adapted::show;
-	TabMeth[1] = (OperatingClass::ptrf) &MatLed_adapted::RGB_1Led;
-	TabMeth[2] = (OperatingClass::ptrf) &MatLed_adapted::Black_1Led;
-	TabMeth[3] = (OperatingClass::ptrf) &MatLed_adapted::RGB_ligne;
-	TabMeth[4] = (OperatingClass::ptrf) &MatLed_adapted::Black_ligne;
-	TabMeth[5] = (OperatingClass::ptrf) &MatLed_adapted::RGB_column;
-	TabMeth[6] = (OperatingClass::ptrf) &MatLed_adapted::Black_column;
-	TabMeth[7] = (OperatingClass::ptrf) &MatLed_adapted::RGB_all;
-	TabMeth[8] = (OperatingClass::ptrf) &MatLed_adapted::Black_all;
+	TabMeth[0] = (OperatingClass::ptrf) &MatLed::show;
+	TabMeth[1] = (OperatingClass::ptrf) &MatLed::RGB_1Led;
+	TabMeth[2] = (OperatingClass::ptrf) &MatLed::Black_1Led;
+	TabMeth[3] = (OperatingClass::ptrf) &MatLed::RGB_ligne;
+	TabMeth[4] = (OperatingClass::ptrf) &MatLed::Black_ligne;
+	TabMeth[5] = (OperatingClass::ptrf) &MatLed::RGB_column;
+	TabMeth[6] = (OperatingClass::ptrf) &MatLed::Black_column;
+	TabMeth[7] = (OperatingClass::ptrf) &MatLed::RGB_all;
+	TabMeth[8] = (OperatingClass::ptrf) &MatLed::Black_all;
 }
 
 void MatLed::Setup(){
