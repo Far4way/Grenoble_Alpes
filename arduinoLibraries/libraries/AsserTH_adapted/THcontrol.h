@@ -15,11 +15,7 @@
 #define PIN_SENSOR2 7
 #define PIN_SENSOR3 8
 #define PIN_SENSOR4 9
-/*
-#define PIN_SPEED_FAN0 10
-#define PIN_PWM_FAN0 11
-#define PIN_SPEED_FAN1 12
-#define PIN_PWM_FAN1 13*/
+
 
 #define PIN_RELAY_PWM 19
 
@@ -27,15 +23,14 @@
 #define PERIODE 2700
 
 
-class AsserTH_adapted : public OperatingClass{
+class THcontrol : public OperatingClass{
 
-//declaration des prototypes des methodes
 public:
-//constructeur
-AsserTH_adapted( float arg_Kp, float arg_Ki, float arg_Kd, float arg_Tdesired=37.0, float arg_Hdesired=100.0);
+//constructor
+THcontrol( float arg_Kp, float arg_Ki, float arg_Kd, float arg_Tdesired=37.0, float arg_Hdesired=100.0);
 
 
-uint8_t THcontrol(uint8_t RalwaysOn_BrumOff);
+uint8_t control(uint8_t RalwaysOn_BrumOff);
 
 private:
 
