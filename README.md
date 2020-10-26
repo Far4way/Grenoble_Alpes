@@ -27,4 +27,8 @@ $ node server.js
 
 To use the various files destinated for the Arduino microcontrollers, put the Arduino libraries inside the folder: \Arduino\libraries of your computer.
 
-Then you can download the .ino file in your Arduino.
+Then you can download the .ino file in your Arduino, and try it with the Pythie interface.
+
+
+
+To know more about the functioning and our project, go to our [wiki](https://2020.igem.org/Team:Grenoble_Alpes/Contribution)
