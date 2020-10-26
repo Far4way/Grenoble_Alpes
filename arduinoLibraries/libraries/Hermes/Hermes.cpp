@@ -2,11 +2,6 @@
 #include "Hermes.h"
 
 
-/*void OperatingClass::Setup(){
-zeus stp
-}*/
-
-
 /*declaration des methodes de Hermes*/
 
 //constructeur
@@ -432,10 +427,6 @@ uint8_t Hermes::resendMg(){
 	this->sendMg();
 	return 1;
 }
-
-/*PINE TA DARONNE */
-/*MAIS GENRE VRAIMENT BIEN, PINE LA EN TAPANT BIEN DANS LE FOND*/
-//ouais ouais super
 
 uint32_t Hermes::Time12b_to_32b(uint8_t unit, uint16_t valTime){
 	if(unit == 0b00) return valTime; //ms
