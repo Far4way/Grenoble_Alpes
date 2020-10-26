@@ -1,16 +1,16 @@
 #include "Arduino.h"
-#include "Hermes.h"
+#include "HermAs.h"
 
 
 /*declaration des methodes de Hermes*/
 
 //constructeur
-Hermes::Hermes(uint8_t arg_id, OperatingClass& arg_opClass): id(arg_id&0x07), OpClass(arg_opClass), nbfctWL(0) {
+HermAs::HermAs(uint8_t arg_id, OperatingClass& arg_opClass): id(arg_id&0x07), OpClass(arg_opClass), nbfctWL(0) {
 	mg.i = 0;
 }
 
 
-void Hermes::setup_OpClass(){
+void HermAs::setup_OpClass(){
 	Serial.begin(19200);
 
 	OpClass.Setup();
@@ -22,7 +22,7 @@ void Hermes::setup_OpClass(){
 }
 
 
-uint8_t Hermes::allocationTab(){
+uint8_t HermAs::allocationTab(){
 	//allocation dynamique des pointeurs
 	
 	if( OpClass.nbArgFloat > 32){
@@ -67,7 +67,7 @@ uint8_t Hermes::allocationTab(){
 	return 1;
 }
 
-uint8_t Hermes::readMg(){
+uint8_t HermAs::readMg(){
 	if( Serial.available() > 0 ){
 
 		uint8_t i;
@@ -92,7 +92,7 @@ uint8_t Hermes::readMg(){
 
 
 
-void Hermes::sendMg(){
+void HermAs::sendMg(){
 	mg.m.idArd = id;
 	uint8_t i;
 	for(i=0;i<4;i++) Serial.write( mg.b[3-i]);
@@ -100,7 +100,7 @@ void Hermes::sendMg(){
 	Serial.flush();
 }
 
-void Hermes::sendMg(uint32_t body, uint8_t typeMg){
+void HermAs::sendMg(uint32_t body, uint8_t typeMg){
 	uint32_t tempo = mg.i;
 	mg.m.type = typeMg&0x03;
 	mg.m.body = body&0x00ffffff;
@@ -108,7 +108,7 @@ void Hermes::sendMg(uint32_t body, uint8_t typeMg){
 	mg.i = tempo;
 }
 
-void Hermes::sendAck( uint8_t Tack, uint8_t ack, uint16_t data){
+void HermAs::sendAck( uint8_t Tack, uint8_t ack, uint16_t data){
 	uint8_t tempo = mg.i;
 	mg.m.type = 0b00;
 	mg.m.Ttype = Tack;
@@ -117,7 +117,7 @@ void Hermes::sendAck( uint8_t Tack, uint8_t ack, uint16_t data){
 	mg.i = tempo;
 }
 
-uint8_t Hermes::sendInfo( uint8_t Tinf, uint8_t numArg1, uint8_t numArg2){
+uint8_t HermAs::sendInfo( uint8_t Tinf, uint8_t numArg1, uint8_t numArg2){
 	uint32_t tempo = mg.i;
 	uint8_t res =0;
 
@@ -229,7 +229,7 @@ uint8_t Hermes::sendInfo( uint8_t Tinf, uint8_t numArg1, uint8_t numArg2){
 	
 }
 
-uint8_t Hermes::addinWL(){
+uint8_t HermAs::addinWL(){
 	if((uint8_t)(((uint32_t)mg.m.body)>>18) >= OpClass.nbMethod ){
 	 	sendAck(0b001,0b011, (mg.m.body>>18)&0x3f);
 		return 0;
@@ -254,7 +254,7 @@ uint8_t Hermes::addinWL(){
 	return 0;
 }
 
-uint8_t Hermes::RMinWL(uint8_t numfct, uint8_t ind){
+uint8_t HermAs::RMinWL(uint8_t numfct, uint8_t ind){
 	if( nbfctWL>0){
 
 		if( ind == 0xff){
@@ -307,7 +307,7 @@ uint8_t Hermes::RMinWL(uint8_t numfct, uint8_t ind){
 	return 0;
 }
 
-uint8_t Hermes::setArg(uint8_t num, uint16_t val){
+uint8_t HermAs::setArg(uint8_t num, uint16_t val){
 	
 	if(num >= OpClass.nbArgInt8 + OpClass.nbArgInt16 + OpClass.nbArgInt32 + OpClass.nbArgFloat){
 			this->sendAck( 0b001, 0b010, num);	//err interpret: num arg no exist
@@ -335,7 +335,7 @@ uint8_t Hermes::setArg(uint8_t num, uint16_t val){
 		return 1;
 }
 
-uint8_t Hermes::interpretMg(){
+uint8_t HermAs::interpretMg(){
 	uint8_t res = 0;
 	switch(mg.m.type){
 		case 0b00:	//ack
@@ -406,7 +406,7 @@ uint8_t Hermes::interpretMg(){
 	}
 }
 
-uint8_t Hermes::resendMg(){
+uint8_t HermAs::resendMg(){
 	
 	uint32_t fPartMg = mg.m.body&0xffff;
 	if( this->readMg() ){
@@ -428,7 +428,7 @@ uint8_t Hermes::resendMg(){
 	return 1;
 }
 
-uint32_t Hermes::Time12b_to_32b(uint8_t unit, uint16_t valTime){
+uint32_t HermAs::Time12b_to_32b(uint8_t unit, uint16_t valTime){
 	if(unit == 0b00) return valTime; //ms
 	
 	if(unit == 0b01) return (uint32_t)valTime*1000; //s
@@ -438,21 +438,21 @@ uint32_t Hermes::Time12b_to_32b(uint8_t unit, uint16_t valTime){
 	if(unit == 0b11) return (uint32_t)valTime*1000*60*60; //h
 }
 
-uint8_t Hermes::Time32b_to_12bUnit( uint32_t valTms){
+uint8_t HermAs::Time32b_to_12bUnit( uint32_t valTms){
 	if( valTms < 1024) return 0b00; //ms
 	if( valTms >= 1024 && valTms < (uint16_t)1024*60) return 0b01; //seconde
 	if( valTms >= (uint16_t)1024*60 && valTms < (uint32_t)1024*60*60) return 0b10; //min
 	if( valTms >= (uint32_t)1024*60*60) return 0b11; //h
 }
 
-uint16_t Hermes::Time32b_to_12bVal( uint32_t valTms){
+uint16_t HermAs::Time32b_to_12bVal( uint32_t valTms){
 	if( valTms < 1024) return valTms; //ms
 	if( valTms >= 1024 && valTms < (uint32_t)1024*60) return valTms/1000; //seconde
 	if( valTms >= (uint32_t)1024*60 && valTms < (uint32_t)1024*60*60) return valTms/((uint32_t)1000*60); //min
 	if( valTms >= (uint32_t)1024*60*60) return valTms/((uint32_t)1000*60*60); //h
 }
 
-uint8_t Hermes::Exec_inWL(){
+uint8_t HermAs::Exec_inWL(){
 	uint8_t resMeth = -1;
 	for( uint8_t i=0; i<nbfctWL; i++){
 		resMeth = 0;
