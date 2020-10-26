@@ -223,12 +223,12 @@ void Move_plate::SetArgMeth_inTab(){
 
 
   //Tab Method
-  TabMeth[0] = (OperatingClass::ptrf) &Move_plate_adapted::initPos;
-  TabMeth[1] = (OperatingClass::ptrf) &Move_plate_adapted::rotation;
-  TabMeth[2] = (OperatingClass::ptrf) &Move_plate_adapted::moveTo_order;
-  TabMeth[3] = (OperatingClass::ptrf) &Move_plate_adapted::moveTo_Well;
-  TabMeth[4] = (OperatingClass::ptrf) &Move_plate_adapted::moveTo_00;
-  TabMeth[5] = (OperatingClass::ptrf) &Move_plate_adapted::one_step_X;
-  TabMeth[6] = (OperatingClass::ptrf) &Move_plate_adapted::one_step_Y;
+  TabMeth[0] = (OperatingClass::ptrf) &Move_plate::initPos;
+  TabMeth[1] = (OperatingClass::ptrf) &Move_plate::rotation;
+  TabMeth[2] = (OperatingClass::ptrf) &Move_plate::moveTo_order;
+  TabMeth[3] = (OperatingClass::ptrf) &Move_plate::moveTo_Well;
+  TabMeth[4] = (OperatingClass::ptrf) &Move_plate::moveTo_00;
+  TabMeth[5] = (OperatingClass::ptrf) &Move_plate::one_step_X;
+  TabMeth[6] = (OperatingClass::ptrf) &Move_plate::one_step_Y;
 
 }
