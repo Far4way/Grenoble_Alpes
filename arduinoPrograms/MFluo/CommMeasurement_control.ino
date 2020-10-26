@@ -1,8 +1,8 @@
-#include <Hermes.h>
+#include <HermAs.h>
 #include <Measurement_control.h>
 
 Measurement_control Mc;
-Hermes herm(0b011,Mc);
+HermAs herm(0b011,Mc);
    
 void setup() {
   herm.setup_OpClass();
