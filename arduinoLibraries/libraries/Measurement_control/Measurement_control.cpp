@@ -1,7 +1,7 @@
 
 #include "Arduino.h"
 #include <FastLED.h>
-#include "Hermes.h"
+#include "HermAs.h"
 #include "Measurement_control.h"
 
 //declaration des méthodes
