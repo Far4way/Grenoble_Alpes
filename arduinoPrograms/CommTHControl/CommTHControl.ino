@@ -1,9 +1,9 @@
 #include <Hermes.h>
-#include <AsserTH_adapted.h>
+#include <THcontrol.h>
 
 
 
-AsserTH_adapted THC(50.0,0.01,10.0);
+THcontrol THC(50.0,0.01,10.0);
 Hermes herm(0b001,THC);
    
 void setup() {
